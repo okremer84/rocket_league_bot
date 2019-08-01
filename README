@@ -1,0 +1,73 @@
+******************************************************************************************************************************************************
+* DB tables to create
+* 
+* users
+* id, slack_id, num_wins, num_mvps, num_losses, points
+* 
+* games
+* id, team_a_player_one, team_a_player_two, team_a_player_three, team_b_player_one, team_b_player_two, team_b_player_three, winning_team
+* 
+* todays_players
+* id, slack_id, created_at
+* 
+******************************************************************************************************************************************************
+
+each player that plays starts by sending the command
+/create_teams in (or ready)
+
+once it hits 4 players and it's been 30 seconds from last player joined, the bot will respond with todays teams
+if the number is < 8, it will create two teams
+in case of 2 teams with uneven number of players
+it will match the player ranked first with the player at position one to last, and the last player would be added to the team with player 2
+for example, in a 7 player game it will output the following teams
+team A:
+position 1
+position 4
+position 6
+
+team B:
+position 2
+position 3
+position 5
+position 7
+
+I'm not sure about the above teams, maybe a better match would be:
+team A:
+position 1
+position 3
+position 6
+
+team B:
+position 2
+position 4
+position 5
+position 7
+
+or we could also random both formats
+
+
+in case of >= 8 players
+the bot will create 4 teams of 2 player using the first 8 players in the rankings
+each additional player would then be added to would be added to each team by going to the worst first
+for example, if we have 11 players
+team A (player 1 and 8) - would have only 2 players
+team B (player 2 and 7) - would get player number 11
+team C (player 3 and 6) - would get player number 10
+team D (player 4 and 5) - would get player number 9
+
+
+after getting all the teams set up
+1 person sends the command:
+/create_teams start
+which will output 1 message saying who needs to create the match and with which setting:
+in case of a 2 team match, it will select one player at random, setting is US West, friendly fire 3 game series
+in case of a tournament, it will select one random player from team A and team C, setting is US West, friendly fire
+
+the bot will then output 3 messages in case of a 2 team match, or 6 messages in case of a tournament.
+each message would have 2 buttons, to input who was the winner, the message should have the definition of each team (team members) and the buttons would be just team names
+after responding to the first message, a second one would pop up to get the team MVP
+this will update the table accordingly to count number of wins, MVP's and increment points (2 for win, 1 for MVP)
+
+the bot should also have a command
+/create_teams leaderboard
+which will output the leaderboard including, number of wins, losses, MVP and overall points

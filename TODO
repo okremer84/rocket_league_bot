@@ -1,0 +1,4 @@
+1. Create DB user on server
+2. Create config.php (DONT ADD IT TO REPO) that would have the DB user config
+3. Create DB tables
+4. Code bot
