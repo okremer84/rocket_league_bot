@@ -34,8 +34,8 @@
         <div class="form-group">
             <label for="who_won">Winner?</label>
             <select class="form-control" id="who_won" name="who_won">
-                <option>Team A</option>
-                <option>Team B</option>
+                <option value="1">Team A</option>
+                <option value="2">Team B</option>
             </select>
         </div>
         <div class="form-group">

@@ -24,17 +24,14 @@ CREATE TABLE `players` (
 
 CREATE TABLE `teams` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `player1_id` int(10) unsigned DEFAULT NULL,
-  `player2_id` int(10) unsigned DEFAULT NULL,
-  `player3_id` int(10) unsigned DEFAULT NULL,
-  `player4_id` int(10) unsigned DEFAULT NULL,
+  `player1_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `player2_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `player3_id` int(10) unsigned NOT NULL DEFAULT 0,
+  `player4_id` int(10) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_team` (`player1_id`,`player2_id`,`player3_id`,`player4_id`),
+  KEY `fk_player1_idx` (`player1_id`),
   KEY `fk_player2_idx` (`player2_id`),
   KEY `fk_player3_idx` (`player3_id`),
-  KEY `fk_player4_idx` (`player4_id`),
-  CONSTRAINT `fk_player1` FOREIGN KEY (`player1_id`) REFERENCES `players` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_player2` FOREIGN KEY (`player2_id`) REFERENCES `players` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_player3` FOREIGN KEY (`player3_id`) REFERENCES `players` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_player4` FOREIGN KEY (`player4_id`) REFERENCES `players` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_player4_idx` (`player4_id`)
 );
