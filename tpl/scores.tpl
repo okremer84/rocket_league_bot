@@ -7,6 +7,7 @@
 </head>
 <body>
 <div class="container">
+    <a href="/results.php">Show results</a>
     <h1>Select teams</h1>
     <form method="POST">
     <div class="row">

@@ -13,11 +13,12 @@ CREATE TABLE `players` (
   `slack_id` varchar(45) NOT NULL,
   `player_name` varchar(255) NOT NULL,
   `github_username` varchar(255) DEFAULT NULL,
-  `num_wins` int(11) NOT NULL DEFAULT '0',
-  `num_losses` int(11) NOT NULL DEFAULT '0',
-  `num_mvps` int(11) NOT NULL DEFAULT '0',
-  `points` int(11) NOT NULL DEFAULT '0',
+  `num_wins` int(11) NOT NULL DEFAULT 0,
+  `num_losses` int(11) NOT NULL DEFAULT 0,
+  `num_mvps` int(11) NOT NULL DEFAULT 0,
+  `points` int(11) NOT NULL DEFAULT 0,
   `steam_username` varchar(255) DEFAULT NULL,
+  `plays_rocket_league` int(1) DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 

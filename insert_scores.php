@@ -3,7 +3,7 @@ require_once 'vendor/autoload.php';
 require_once 'DB.php';
 require_once 'HelperFunctions.php';
 
-$loader = new \Twig\Loader\FilesystemLoader('/');
+$loader = new \Twig\Loader\FilesystemLoader('tpl');
 $twig = new \Twig\Environment($loader, [
     'cache' => 'temp',
     'auto_reload' => true,
@@ -14,7 +14,6 @@ if (!empty($_POST)) {
     $team_b = $_POST['team_b'];
     $who_won = (int)$_POST['who_won'];
     $mvp = (int)$_POST['mvp'];
-
     if (empty($team_a[0]) || empty($team_b[0])) {
         echo "Needs at least 1 player in either teams";
         die();
@@ -49,22 +48,17 @@ if (!empty($_POST)) {
 
     $winning_team_id = $team_b_id;
     if ($who_won == 1) {
-        $winning_team_id = $team_b_id;
+        $winning_team_id = $team_a_id;
     }
 
-    HelperFunctions::insert_new_match($team_a_id, $team_b_id, $mvp, $winning_team_id);
+    HelperFunctions::insert_new_match($team_a, $team_b, $team_a_id, $team_b_id, $mvp, $winning_team_id);
 
     echo "Done inserting a new result<br/>";
 
 }
 
-$db = DB::get_instance();
-$stmt = $db->prepare("SELECT id, player_name FROM players ORDER BY player_name ASC");
-$stmt->execute();
-$players = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$data['player_count'] = count($players);
-$data['players'] = $players;
-$data['name'] = "Omer";
+$data['players'] = HelperFunctions::get_players_data(HelperFunctions::SORT_BY_NAME);
+$data['player_count'] = count($data['players']);
 
 echo $twig->render('scores.tpl', [
     'data' => empty($data) ? '' : $data,
