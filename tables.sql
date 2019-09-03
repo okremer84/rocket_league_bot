@@ -4,6 +4,7 @@ CREATE TABLE `matches` (
   `team2_id` int(10) unsigned NOT NULL,
   `mvp_id` int(10) unsigned DEFAULT NULL,
   `winning_team_id` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 );
 
